@@ -1,6 +1,7 @@
  // Dummy change to trigger PR from release/v1.0 to main
 const express = require("express");
 require("dotenv").config();
+const { Pool } = require("pg");
 
 const app = express();
 const port = process.env.PORT || 3000;
