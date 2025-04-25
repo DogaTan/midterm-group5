@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // 🔐 Azure Key Vault bağlantısı
-const keyVaultUrl = process.env.KEYVAULT_URL;
+const keyVaultUrl = process.env.KEYVAULTURL;
 const credential = new DefaultAzureCredential();
 const secretClient = new SecretClient(keyVaultUrl, credential);
 
