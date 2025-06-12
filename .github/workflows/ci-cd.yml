@@ -1,11 +1,11 @@
 ﻿name: CI/CD Pipeline
 
 on:
-  push:
+ push:
     branches:
       - develop
       - 'release/*'
-
+    
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
