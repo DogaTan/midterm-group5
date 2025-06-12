@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 service ssh start
 echo "SSH servisi baslatildi."
-exec npm start
+npm start
