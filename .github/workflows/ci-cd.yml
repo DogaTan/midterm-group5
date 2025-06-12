@@ -1,11 +1,12 @@
-﻿name: CI/CD Pipeline
+# .github/workflows/ci-cd.yml
+name: CI/CD Pipeline
 
 on:
- push:
+  push:
     branches:
       - develop
       - 'release/*'
-    
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -17,10 +18,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ secrets.ACR_LOGIN_SERVER }} \
+            --username ${{ secrets.ACR_USERNAME }} --password-stdin
+
       - name: Build and Push Docker image
         run: |
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/myapp:${{ github.sha }} .
-          echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/myapp:${{ github.sha }}
 
       - name: Deploy to App Service
