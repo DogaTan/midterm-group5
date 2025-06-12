@@ -19,8 +19,11 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/myapp:${{ github.sha }} .
-          echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+          docker build \
+            -t ${{ secrets.ACR_LOGIN_SERVER }}/myapp:${{ github.sha }} \
+            .
+          echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} \
+            -u ${{ secrets.ACR_USERNAME }} --password-stdin
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/myapp:${{ github.sha }}
 
       - name: Deploy to App Service
